@@ -1,8 +1,4 @@
-class ShippingCsvHooks < Spree::ThemeSupport::HookListener
-
-  insert_after :admin_orders_index_search_buttons do
-    %(  <script>
-          function submitCSV()
+function submitCSV()
           { 
             confirm("This function returns only complete orders within the selected date range.");
             var startDate = $('#search_created_at_greater_than').val();
@@ -13,9 +9,3 @@ class ShippingCsvHooks < Spree::ThemeSupport::HookListener
             }
             window.location = "/admin/shippingdocs" + "?start=" + startDate + "&end=" + endDate
           }
-        </script>
-        <p><button type="button" onclick="javascript:submitCSV()"><span>CSV</span></button>
-    )
-  end
-
-end
