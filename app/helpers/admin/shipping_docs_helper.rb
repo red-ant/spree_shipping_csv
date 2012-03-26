@@ -1,4 +1,4 @@
-module Admin::ShippingdocsHelper
+module Admin::ShippingDocsHelper
 
     def csv_header_row
         [

@@ -1,7 +1,6 @@
-require 'fastercsv'
 
-class Admin::ShippingdocsController < Admin::BaseController
-  include Admin::ShippingdocsHelper
+class Admin::ShippingDocsController < Admin::BaseController
+  include Admin::ShippingDocsHelper
 
   def index
 
