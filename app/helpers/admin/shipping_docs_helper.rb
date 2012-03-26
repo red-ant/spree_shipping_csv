@@ -12,7 +12,8 @@ module Admin::ShippingDocsHelper
             "billing_city", 
             "billing_state", 
             "billing_zip",
-            "shipping_first_name", 
+	    "Shipping Class",
+	    "shipping_first_name", 
             "shipping_last_name", 
             "shipping_address_1", 
             "shipping_address_2", 
@@ -46,6 +47,7 @@ module Admin::ShippingDocsHelper
           order.bill_address.city,
 	  order.bill_address.state_text,
           order.bill_address.zipcode,
+	  shipping_class(order),
           order.ship_address.firstname, 
           order.ship_address.lastname, 
           order.ship_address.address1, 
@@ -61,7 +63,7 @@ module Admin::ShippingDocsHelper
           ordered_items(order)
         ]
 
-    end
+    eorder.adjustments.eligible.where(label: "Shipping").first.amountnd
 
     def ordered_items(order)
         items = ""
@@ -72,5 +74,8 @@ module Admin::ShippingDocsHelper
         items
     end
 
-
+    def shipping_class(order)
+      "first class"
+      "priority" if order.adjustments.eligible.where(label: "Shipping").first.amount > 4
+    end
 end
