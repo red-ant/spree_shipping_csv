@@ -63,7 +63,7 @@ module Admin::ShippingDocsHelper
           ordered_items(order)
         ]
 
-    eorder.adjustments.eligible.where(label: "Shipping").first.amountnd
+    end
 
     def ordered_items(order)
         items = ""
@@ -75,7 +75,6 @@ module Admin::ShippingDocsHelper
     end
 
     def shipping_class(order)
-      "first class"
-      "priority" if order.adjustments.eligible.where(label: "Shipping").first.amount > 4
+      (order.adjustments.eligible.where(label: "Shipping").first.amount > 4) ? "priority" : "first class"
     end
 end
