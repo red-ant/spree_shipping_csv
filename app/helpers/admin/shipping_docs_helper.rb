@@ -5,14 +5,8 @@ module Admin::ShippingDocsHelper
             "order_number", 
             "order_date", 
             "order_total", 
-            "billing_first_name", 
-            "billing_last_name", 
-            "billing_address_1", 
-            "billing_address_2", 
-            "billing_city", 
-            "billing_state", 
-            "billing_zip",
 	    "Shipping Class",
+            "products_ordered" 
 	    "shipping_first_name", 
             "shipping_last_name", 
             "shipping_address_1", 
@@ -22,10 +16,7 @@ module Admin::ShippingDocsHelper
             "shipping_zip", 
             "weight", 
             "email", 
-            "payment_state", 
-            "shipment_state", 
             "special_instructions", 
-            "products_ordered" 
         ]
     end
 
@@ -40,14 +31,8 @@ module Admin::ShippingDocsHelper
           order.number, 
           order.completed_at, 
           order.total, 
-          order.bill_address.firstname, 
-          order.bill_address.lastname, 
-          order.bill_address.address1, 
-          order.bill_address.address2, 
-          order.bill_address.city,
-	  order.bill_address.state_text,
-          order.bill_address.zipcode,
-	  shipping_class(order),
+	  shipping_class(order), 
+          ordered_items(order),
           order.ship_address.firstname, 
           order.ship_address.lastname, 
           order.ship_address.address1, 
@@ -55,12 +40,9 @@ module Admin::ShippingDocsHelper
           order.ship_address.city ,
           order.ship_address.state_text,
           order.ship_address.zipcode, 
-          shipmentWeight, 
+          shipping_weight(order), 
           order.email, 
-          order.payment_state, 
-          order.shipment_state, 
-          order.special_instructions, 
-          ordered_items(order)
+          order.special_instructions,
         ]
 
     end
@@ -75,6 +57,20 @@ module Admin::ShippingDocsHelper
     end
 
     def shipping_class(order)
-      (order.adjustments.eligible.where(label: "Shipping").first.amount > 4) ? "priority" : "first class"
+      if order.adjustments.eligible.where(label: "Shipping").first.amount > 4
+        "priority" 
+      elsif shipping_weight(order) < 3.5
+        "first_class"
+      else
+	"first_class_large"
+      end
+    end
+
+    def shipping_weight(order)
+      weight = 0.3
+      order.line_items.each do |line_item|
+        weight += line_item.variant.height unless line_item.variant.height.nil?
+      end
+      weight
     end
 end
