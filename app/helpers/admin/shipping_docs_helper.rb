@@ -5,8 +5,8 @@ module Admin::ShippingDocsHelper
             "order_number", 
             "order_date", 
             "order_total", 
-	    "Shipping Class",
-            "products_ordered" 
+	    "shipping_class",
+            "products_ordered", 
 	    "shipping_first_name", 
             "shipping_last_name", 
             "shipping_address_1", 
@@ -16,7 +16,7 @@ module Admin::ShippingDocsHelper
             "shipping_zip", 
             "weight", 
             "email", 
-            "special_instructions", 
+            "special_instructions" 
         ]
     end
 
@@ -42,7 +42,7 @@ module Admin::ShippingDocsHelper
           order.ship_address.zipcode, 
           shipping_weight(order), 
           order.email, 
-          order.special_instructions,
+          order.special_instructions
         ]
 
     end
