@@ -14,6 +14,8 @@ module Admin::ShippingDocsHelper
             "shipping_city", 
             "shipping_state",
             "shipping_zip", 
+	    "shipping_country",
+	    "billing_phone",
             "weight", 
             "email", 
             "special_instructions" 
@@ -40,6 +42,8 @@ module Admin::ShippingDocsHelper
           order.ship_address.city ,
           order.ship_address.state_text,
           order.ship_address.zipcode, 
+	  order.ship_address.country.name,
+	  order.bill_address.phone,
           shipping_weight(order), 
           order.email, 
           order.special_instructions
