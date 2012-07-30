@@ -17,7 +17,7 @@ class Admin::ShippingDocsController < Admin::BaseController
         date_end = Time.zone.parse(params[:end]).end_of_day rescue ""
     end
 
-    @orders = Order.find(:all, :conditions => { :completed_at => date_start..date_end, :state => 'complete', :shipment_state => 'pending' })
+    @orders = Order.find(:all, :conditions => { :completed_at => date_start..date_end, :state => 'complete' })
 
     csv_string = CSV.generate do |csv|
 
