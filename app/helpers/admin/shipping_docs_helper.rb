@@ -5,6 +5,9 @@ module Admin::ShippingDocsHelper
             "order_number", 
             "order_date", 
             "order_total", 
+            "payment_state", 
+            "order_points", 
+            "redemption_state", 
 	    "shipping_class",
             "products_ordered", 
 	    "shipping_first_name", 
@@ -17,6 +20,7 @@ module Admin::ShippingDocsHelper
 	    "shipping_country",
 	    "billing_phone",
             "weight", 
+            "shipment_state", 
             "email", 
             "special_instructions" 
         ]
@@ -33,6 +37,9 @@ module Admin::ShippingDocsHelper
           order.number, 
           order.completed_at, 
           order.total, 
+          order.payment_state, 
+          order.points, 
+          order.redemption_state, 
 	  shipping_class(order), 
           ordered_items(order),
           order.ship_address.firstname, 
@@ -45,6 +52,7 @@ module Admin::ShippingDocsHelper
 	  order.ship_address.country.name,
 	  order.bill_address.phone,
           shipping_weight(order), 
+          order.shipment_state, 
           order.email, 
           order.special_instructions
         ]
